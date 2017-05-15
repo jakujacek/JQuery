@@ -1,0 +1,31 @@
+$(function() {
+
+  //variables for main ul list
+  var movieLists = $('.repertuar');
+  //variables for url
+  var movieUrl = 'http://swapi.co/api/films/';
+
+
+  /* Insert Movies to DOM  */
+  function insertContent(movies) {
+    for(var i = 0 ; i < movies.length; i++) {
+        var li = $('<li>', {class: "movie"});
+        var h3 = $('<h3>').text(movies[i].title);
+        li.append(h3);
+        movieLists.append(li);
+    };
+  }
+
+  /* Load movies and insert them into the DOM
+  */
+        $.ajax({
+            url: movieUrl,
+            dataType: 'json'
+        }).done(function(response){
+     		insertContent(response.results);
+    	 }).fail(function(error) {
+           console.log(error);
+       })
+
+
+});
